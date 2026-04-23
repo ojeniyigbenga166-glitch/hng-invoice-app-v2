@@ -1,0 +1,381 @@
+/* ============================================
+   INVOICES PAGE STYLES — Matches Figma
+   ============================================ */
+@import './global.css';
+@import './Sidebar.css';
+@import './StatusBadge.css';
+@import './InvoiceCard.css';
+
+/* ── Page Layout ── */
+.invoices-page {
+  display: flex;
+  min-height: 100dvh;
+  background-color: var(--color-bg-main);
+}
+
+/* Desktop/Tablet: push content past the left sidebar */
+.invoices-main {
+  flex: 1;
+  margin-left: var(--sidebar-width);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--color-bg-main);
+  transition: background-color 0.3s ease;
+}
+
+/* ── Header ── */
+.invoices-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 72px 48px 32px;
+  gap: 24px;
+  max-width: 780px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.invoices-header__left {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.invoices-header__title {
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--color-text-dark);
+  letter-spacing: -1px;
+  line-height: 33px;
+}
+
+.invoices-header__subtitle {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text-muted, #888EB0);
+  letter-spacing: -0.1px;
+  line-height: 15px;
+}
+
+.invoices-header__right {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  flex-shrink: 0;
+}
+
+/* ── Filter ── */
+.filter-container {
+  position: relative;
+}
+
+.filter-trigger {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 0;
+  font-family: var(--font-family);
+}
+
+.filter-trigger__label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.25px;
+  color: var(--color-text-dark);
+  transition: color 0.2s ease;
+}
+
+.filter-trigger:hover .filter-trigger__label {
+  color: var(--color-text-grey);
+}
+
+.filter-active-count {
+  background: var(--color-primary-purple);
+  color: white;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  font-size: 11px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chevron {
+  transition: transform 0.25s ease;
+  flex-shrink: 0;
+}
+
+.chevron.open {
+  transform: rotate(180deg);
+}
+
+/* Dropdown */
+.filter-dropdown {
+  position: absolute;
+  top: calc(100% + 16px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-white);
+  box-shadow: 0px 10px 20px rgba(72, 84, 159, 0.25);
+  border-radius: 8px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 192px;
+  z-index: 200;
+  animation: dropdownIn 0.2s ease;
+}
+
+@keyframes dropdownIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(-8px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* Checkbox */
+.custom-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  position: relative;
+  padding-left: 36px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.25px;
+  color: var(--color-text-dark);
+  user-select: none;
+  line-height: 20px;
+}
+
+.custom-checkbox input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.checkmark {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  background-color: var(--color-light-grey, #DFE3FA);
+  border-radius: 2px;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.custom-checkbox:hover .checkmark {
+  border-color: var(--color-primary-purple);
+}
+
+.custom-checkbox input:checked ~ .checkmark {
+  background-color: var(--color-primary-purple);
+  border-color: var(--color-primary-purple);
+}
+
+.checkmark::after {
+  content: '';
+  position: absolute;
+  display: none;
+  left: 5px;
+  top: 1px;
+  width: 4px;
+  height: 8px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.custom-checkbox input:checked ~ .checkmark::after {
+  display: block;
+}
+
+.checkbox-label {
+  margin-left: 4px;
+}
+
+/* ── New Invoice Button (matches Figma Button 1) ── */
+.btn-new-invoice {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background-color: var(--color-primary-purple);
+  color: white;
+  border: none;
+  padding: 8px 16px 8px 8px;
+  border-radius: 24px;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.25px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
+  font-family: var(--font-family);
+  white-space: nowrap;
+}
+
+.btn-new-invoice:hover {
+  background-color: #9277FF;
+}
+
+.btn-new-invoice:active {
+  transform: scale(0.98);
+}
+
+.btn-icon-circle {
+  width: 32px;
+  height: 32px;
+  background-color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* ── Invoice List wrapper ── */
+.invoices-list-wrap {
+  padding: 0 48px 48px;
+  max-width: 780px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.invoice-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ── Empty State ── */
+.empty-state {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 64px 24px;
+}
+
+.empty-state-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 260px;
+}
+
+.empty-state-illustration {
+  margin-bottom: 48px;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-10px); }
+}
+
+.empty-state-title {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.75px;
+  color: var(--color-text-dark);
+  margin-bottom: 16px;
+}
+
+.empty-state-message {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: -0.1px;
+  color: var(--color-text-muted, #888EB0);
+  line-height: 18px;
+}
+
+/* ============================================
+   Responsive
+   ============================================ */
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .invoices-header {
+    padding: 48px 32px 24px;
+  }
+
+  .invoices-list-wrap {
+    padding: 0 32px 32px;
+  }
+}
+
+/* Tablet/Mobile: sidebar becomes top bar */
+@media (max-width: 1024px) {
+  .invoices-main {
+    margin-left: 0;
+    margin-top: var(--sidebar-width);
+  }
+
+  .invoices-header {
+    padding: 24px 24px 16px;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .invoices-header__title {
+    font-size: 24px;
+    line-height: 22px;
+    letter-spacing: -0.75px;
+  }
+
+  .invoices-header__right {
+    gap: 18px;
+  }
+
+  .filter-dropdown {
+    left: 0;
+    transform: none;
+  }
+
+  @keyframes dropdownIn {
+    from { opacity: 0; transform: translateY(-8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .invoices-list-wrap {
+    padding: 0 24px 24px;
+  }
+
+  .btn-new-invoice {
+    padding: 6px 14px 6px 6px;
+    font-size: 15px;
+    gap: 8px;
+  }
+
+  .empty-state {
+    padding: 40px 16px;
+  }
+
+  .empty-state-title {
+    font-size: 20px;
+  }
+}
+
+/* Small mobile */
+@media (max-width: 400px) {
+  .invoices-header {
+    padding: 16px 16px 12px;
+  }
+
+  .invoices-list-wrap {
+    padding: 0 16px 16px;
+  }
+}

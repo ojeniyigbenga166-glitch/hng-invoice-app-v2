@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice Dashboard - HNG</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f8fb;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        // StatusBadge Component
+        function StatusBadge({ status }) {
+            const statusStyles = {
+                paid: {
+                    bg: 'bg-green-100',
+                    text: 'text-green-700',
+                    dot: 'bg-green-700'
+                },
+                pending: {
+                    bg: 'bg-yellow-100',
+                    text: 'text-yellow-700',
+                    dot: 'bg-yellow-700'
+                },
+                draft: {
+                    bg: 'bg-gray-200',
+                    text: 'text-gray-700',
+                    dot: 'bg-gray-700'
+                }
+            };
+
+            const style = statusStyles[status?.toLowerCase()] || statusStyles.draft;
+
+            return (
+                <span className={`flex items-center gap-2 px-3 py-2 rounded-lg ${style.bg}`}>
+                    <span className={`w-2 h-2 rounded-full ${style.dot}`}></span>
+                    <span className={`text-sm font-semibold capitalize ${style.text}`}>{status}</span>
+                </span>
+            );
+        }
+
+        // Button Component
+        function Button({ children, variant = 'primary', className = '', ...props }) {
+            const baseStyles = 'font-semibold rounded-full transition-shadow duration-300 flex items-center gap-2 justify-center';
+            
+            const variants = {
+                primary: 'bg-purple-600 hover:bg-purple-700 text-white px-6 py-3',
+                secondary: 'bg-gray-200 hover:bg-gray-300 text-gray-700 px-6 py-3',
+                tertiary: 'bg-transparent hover:bg-gray-100 text-gray-700 px-6 py-3'
+            };
+
+            return (
+                <button className={`${baseStyles} ${variants[variant]} ${className}`} {...props}>
+                    {children}
+                </button>
+            );
+        }
+
+        // InvoiceCard Component
+        function InvoiceCard({ invoice }) {
+            const {
+                id = '#RT3080',
+                dueDate = 'Due 19 Aug 2021',
+                clientName = 'Jensen Huang',
+                amount = '$1,800.90',
+                status = 'Pending'
+            } = invoice || {};
+
+            return (
+                <div className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer p-6 md:p-8">
+                    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 md:gap-6">
+                        {/* Left Side */}
+                        <div className="flex flex-col gap-2 md:gap-0">
+                            <span className="font-bold text-gray-900 text-lg">{id}</span>
+                            <span className="text-gray-600 text-sm md:text-base">{dueDate}</span>
+                            <span className="text-gray-400 text-sm md:text-base hidden md:block">{clientName}</span>
+                            <span className="text-gray-400 text-sm md:hidden">{clientName}</span>
+                        </div>
+
+                        {/* Right Side */}
+                        <div className="flex flex-col md:flex-row md:items-center md:gap-8 gap-4 md:gap-12">
+                            <div className="flex items-center justify-between md:justify-start md:flex-col md:items-end gap-2">
+                                <span className="text-gray-600 text-sm md:hidden">Amount</span>
+                                <span className="font-bold text-gray-900 text-lg">{amount}</span>
+                            </div>
+                            
+                            <div className="flex items-center justify-between md:justify-center md:flex-row gap-4">
+                                <StatusBadge status={status} />
+                                <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        // InvoiceList Component
+        function InvoiceList({ invoices = [] }) {
+            const dummyInvoices = [
+                { id: '#RT3080', dueDate: 'Due 19 Aug 2021', clientName: 'Jensen Huang', amount: '$1,800.90', status: 'Pending' },
+                { id: '#XM9141', dueDate: 'Due 20 Sep 2021', clientName: 'Alex Grim', amount: '$556.00', status: 'Pending' },
+                { id: '#RG0314', dueDate: 'Due 18 Apr 2021', clientName: 'John Morrison', amount: '$14,002.33', status: 'Pending' },
+                { id: '#JM470', dueDate: 'Due 14 Oct 2021', clientName: 'Martin Cooper', amount: '$872.34', status: 'Draft' },
+                { id: '#LS421', dueDate: 'Due 21 May 2021', clientName: 'Larry Williamson', amount: '$7,002.33', status: 'Pending' },
+                { id: '#RF2103', dueDate: 'Due 19 Aug 2021', clientName: 'Marta Chambers', amount: '$141.25', status: 'Draft' },
+                { id: '#AR0234', dueDate: 'Due 17 Apr 2021', clientName: 'Albert Osanhon', amount: '$120.00', status: 'Paid' }
+            ];
+
+            const invoiceList = invoices.length > 0 ? invoices : dummyInvoices;
+
+            return (
+                <div className="space-y-4">
+                    {invoiceList.map((invoice, index) => (
+                        <InvoiceCard key={index} invoice={invoice} />
+                    ))}
+                </div>
+            );
+        }
+
+        // Header Component
+        function Header({ invoiceCount = 7 }) {
+            return (
+                <header className="flex flex-col md:flex-row md:items-center md:justify-between gap-8 mb-8 md:mb-12">
+                    <div className="flex-1">
+                        <h1 className="text-3xl md:text-4xl font-bold text-gray-900">Invoices</h1>
+                        <p className="text-gray-600 text-sm md:text-base mt-1">There are {invoiceCount} total invoices</p>
+                    </div>
+
+                    <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-stretch sm:items-center">
+                        {/* Filter Dropdown */}
+                        <div className="relative">
+                            <select className="w-full sm:w-auto appearance-none bg-transparent text-gray-900 font-semibold px-4 py-3 pr-8 rounded-lg border-0 cursor-pointer hover:text-purple-600 transition-colors">
+                                <option value="">Filter by status</option>
+                                <option value="draft">Draft</option>
+                                <option value="pending">Pending</option>
+                                <option value="paid">Paid</option>
+                            </select>
+                            <svg className="absolute right-0 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-900 pointer-events-none mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                            </svg>
+                        </div>
+
+                        {/* New Invoice Button */}
+                        <Button variant="primary" className="bg-purple-600 hover:shadow-lg">
+                            <svg className="w-5 h-5" fill="white" viewBox="0 0 24 24">
+                                <path d="M12 5v14m7-7H5" strokeWidth={2} stroke="white" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                            <span className="hidden sm:inline">New Invoice</span>
+                            <span className="sm:hidden">New</span>
+                        </Button>
+                    </div>
+                </header>
+            );
+        }
+
+        // Sidebar Component
+        function Sidebar() {
+            return (
+                <aside className="hidden md:flex fixed left-0 top-0 h-screen w-24 bg-gray-900 rounded-r-3xl flex-col items-center justify-between py-8 shadow-lg">
+                    {/* Logo */}
+                    <div className="flex items-center justify-center w-14 h-14 bg-gradient-to-br from-purple-600 to-purple-700 rounded-full shadow-md">
+                        <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6z" />
+                        </svg>
+                    </div>
+
+                    {/* Theme Toggle */}
+                    <button className="flex items-center justify-center w-12 h-12 hover:bg-gray-800 rounded-full transition-colors duration-300">
+                        <svg className="w-6 h-6 text-gray-400 hover:text-purple-400 transition-colors" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                        </svg>
+                    </button>
+
+                    {/* User Avatar */}
+                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center shadow-md cursor-pointer hover:shadow-lg transition-shadow">
+                        <span className="text-sm font-bold text-white">JH</span>
+                    </div>
+                </aside>
+            );
+        }
+
+        // Dashboard Component
+        function Dashboard() {
+            return (
+                <div className="flex min-h-screen bg-gray-100">
+                    {/* Sidebar */}
+                    <Sidebar />
+
+                    {/* Main Content */}
+                    <main className="flex-1 md:ml-24 p-6 md:p-10 lg:p-16">
+                        <div className="max-w-4xl mx-auto">
+                            {/* Header */}
+                            <Header invoiceCount={7} />
+
+                            {/* Invoice List */}
+                            <InvoiceList />
+                        </div>
+                    </main>
+                </div>
+            );
+        }
+
+        // Render App
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<Dashboard />);
+    </script>
+</body>
+</html>

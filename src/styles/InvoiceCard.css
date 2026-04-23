@@ -1,0 +1,144 @@
+/* ============================================
+   INVOICE CARD STYLES — Matches Figma
+   ============================================ */
+
+/* ── Card: single horizontal row on tablet/desktop ── */
+.invoice-card {
+  display: grid;
+  grid-template-columns: auto 1fr 1fr auto auto auto;
+  align-items: center;
+  gap: 0;
+  column-gap: 24px;
+  background-color: var(--color-white, #FFFFFF);
+  border-radius: 8px;
+  padding: 16px 24px 16px 32px;
+  cursor: pointer;
+  text-decoration: none;
+  border: 1px solid transparent;
+  box-shadow: 0 10px 10px -10px rgba(72, 84, 159, 0.1);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease;
+  outline: none;
+}
+
+.invoice-card:hover,
+.invoice-card--hovered {
+  border-color: #7C5DFA;
+}
+
+.invoice-card:focus-visible {
+  border-color: #7C5DFA;
+  box-shadow: 0 0 0 3px rgba(124, 93, 250, 0.3);
+}
+
+/* ── Grid cells ── */
+
+/* Invoice ID: #RT3080 */
+.invoice-card__id {
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: -0.25px;
+  color: var(--color-text-dark, #0C0E16);
+  white-space: nowrap;
+}
+
+.invoice-card__hash {
+  color: #7E88C3;
+}
+
+/* Due date */
+.invoice-card__due {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: -0.1px;
+  color: var(--color-text-muted, #888EB0);
+  white-space: nowrap;
+}
+
+/* Client name */
+.invoice-card__client {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: -0.1px;
+  color: var(--color-text-muted, #888EB0);
+  text-align: left;
+}
+
+/* Amount */
+.invoice-card__amount {
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: -0.25px;
+  color: var(--color-text-dark, #0C0E16);
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* Status badge wrapper (badge itself styled in StatusBadge.css) */
+
+/* Arrow chevron */
+.invoice-card__arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-left: 8px;
+}
+
+/* ============================================
+   Tablet adjustments (768px - 1023px)
+   ============================================ */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .invoice-card {
+    column-gap: 20px;
+    padding: 16px 20px 16px 24px;
+  }
+}
+
+/* ============================================
+   Mobile: stacked card layout (< 768px)
+   ============================================ */
+@media (max-width: 767px) {
+  .invoice-card {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto;
+    grid-template-areas:
+      "id      client"
+      "due     due"
+      "amount  badge";
+    gap: 8px;
+    column-gap: 0;
+    padding: 24px;
+    row-gap: 24px;
+  }
+
+  .invoice-card__id {
+    grid-area: id;
+    font-size: 15px;
+  }
+
+  .invoice-card__client {
+    grid-area: client;
+    text-align: right;
+    font-size: 13px;
+  }
+
+  .invoice-card__due {
+    grid-area: due;
+    font-size: 13px;
+  }
+
+  .invoice-card__amount {
+    grid-area: amount;
+    text-align: left;
+    font-size: 16px;
+  }
+
+  .invoice-card__badge-wrap {
+    grid-area: badge;
+    justify-self: end;
+  }
+
+  .invoice-card__arrow {
+    display: none;
+  }
+}

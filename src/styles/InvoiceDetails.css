@@ -1,0 +1,485 @@
+/* ============================================
+   INVOICE DETAILS PAGE STYLES
+   ============================================ */
+@import './global.css';
+@import './Sidebar.css';
+@import './StatusBadge.css';
+
+/* ── Page Layout ── */
+.invoice-details-page {
+  display: flex;
+  min-height: 100dvh;
+  background-color: var(--color-bg-main);
+  transition: background-color 0.3s ease;
+}
+
+.invoice-details-container {
+  flex: 1;
+  margin-left: var(--sidebar-width);
+  padding: 72px 48px 64px;
+  /* Center content horizontally */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Inner wrapper constrains width and stays centered */
+.invoice-details-inner {
+  width: 100%;
+  max-width: 780px;
+}
+
+/* ── Back Button ── */
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 24px;
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--color-text-dark);
+  cursor: pointer;
+  margin-bottom: 32px;
+  padding: 0;
+  transition: color 0.2s ease;
+}
+
+.back-btn:hover {
+  color: var(--color-text-grey);
+}
+
+/* ── Status Bar ── */
+.details-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--color-white);
+  padding: 24px 32px;
+  border-radius: 8px;
+  box-shadow: var(--shadow-md);
+  margin-bottom: 24px;
+  transition: background-color 0.3s ease;
+}
+
+.status-section {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  color: var(--color-text-muted, #888EB0);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* Buttons */
+.btn {
+  padding: 16px 24px;
+  border-radius: 24px;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 15px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  white-space: nowrap;
+}
+
+.btn:active { transform: scale(0.97); }
+
+.btn-edit {
+  background: var(--color-table-bg, #F9FAFE);
+  color: var(--color-text-grey, #7E88C3);
+}
+.btn-edit:hover { background: var(--color-light-grey, #DFE3FA); }
+
+.dark-theme .btn-edit {
+  background: #252945;
+  color: #DFE3FA;
+}
+.dark-theme .btn-edit:hover { background: #1E2139; }
+
+.btn-delete { background: #EC5757; color: white; }
+.btn-delete:hover { background: #FF9797; }
+
+.btn-mark-paid { background: var(--color-primary-purple, #7C5DFA); color: white; }
+.btn-mark-paid:hover { background: var(--color-primary-purple-hover, #9277FF); }
+
+.btn-paid {
+  background: #33D69F;
+  color: white;
+  cursor: default;
+}
+
+/* ── Details Body ── */
+.details-body {
+  background: var(--color-white);
+  padding: 48px;
+  border-radius: 8px;
+  box-shadow: var(--shadow-md);
+  transition: background-color 0.3s ease;
+}
+
+/* Top row */
+.body-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+}
+
+.id-desc h1 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-text-dark);
+  margin-bottom: 8px;
+}
+
+.id-desc h1 span {
+  color: var(--color-text-muted, #888EB0);
+}
+
+.id-desc p {
+  color: var(--color-text-grey, #7E88C3);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.sender-address p {
+  color: var(--color-text-grey, #7E88C3);
+  font-size: 13px;
+  line-height: 1.6;
+  text-align: right;
+}
+
+/* Middle row */
+.body-middle {
+  display: flex;
+  gap: 80px;
+  margin-bottom: 48px;
+}
+
+.dates {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.date-group p, .bill-to > p, .sent-to > p {
+  color: var(--color-text-grey, #7E88C3);
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+.date-group h3, .bill-to h3, .sent-to h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-text-dark);
+}
+
+.bill-to address p {
+  color: var(--color-text-grey, #7E88C3);
+  font-size: 13px;
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+/* Items table */
+.items-table {
+  background: var(--color-table-bg, #F9FAFE);
+  border-radius: 8px 8px 0 0;
+  padding: 32px;
+  transition: background-color 0.3s ease;
+}
+
+.table-header,
+.table-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.table-header p {
+  color: var(--color-text-grey, #7E88C3);
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.table-row h4 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-text-dark);
+}
+
+.table-row p {
+  color: var(--color-text-muted, #888EB0);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.qty, .price, .total { text-align: right; }
+.total { color: var(--color-text-dark) !important; }
+
+/* Footer */
+.table-footer {
+  background: var(--color-table-footer, #373B53);
+  color: white;
+  border-radius: 0 0 8px 8px;
+  padding: 24px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.3s ease;
+}
+
+.table-footer p { font-size: 13px; font-weight: 500; }
+.table-footer h2 { font-size: 24px; font-weight: 700; margin: 0; }
+
+/* ── Delete Modal (shared with DeleteModal.jsx) ── */
+.delete-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 2000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+  animation: fadeIn 0.15s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.delete-modal {
+  background: var(--color-white);
+  padding: 48px;
+  border-radius: 8px;
+  max-width: 480px;
+  width: 100%;
+  box-shadow: var(--shadow-lg);
+  animation: modalPop 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: background-color 0.3s ease;
+}
+
+@keyframes modalPop {
+  from { opacity: 0; transform: scale(0.95) translateY(-8px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.delete-modal h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--color-text-dark);
+  margin-bottom: 16px;
+  letter-spacing: -0.5px;
+}
+
+.delete-modal p {
+  color: var(--color-text-muted, #888EB0);
+  font-size: 13px;
+  line-height: 1.7;
+  margin-bottom: 8px;
+}
+
+.delete-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.btn-cancel-delete {
+  background: var(--color-table-bg, #F9FAFE);
+  color: var(--color-text-grey, #7E88C3);
+  border: none;
+  padding: 16px 24px;
+  border-radius: 24px;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-cancel-delete:hover { background: var(--color-light-grey); }
+.dark-theme .btn-cancel-delete { background: #252945; color: #DFE3FA; }
+
+.btn-confirm-delete {
+  background: #EC5757;
+  color: white;
+  border: none;
+  padding: 16px 24px;
+  border-radius: 24px;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-confirm-delete:hover { background: #FF9797; }
+
+/* ── Responsive ── */
+
+@media (max-width: 1024px) {
+  .invoice-details-container {
+    padding: 48px 32px;
+  }
+  .body-middle { gap: 48px; }
+  .details-body { padding: 32px; }
+}
+
+@media (max-width: 1024px) {
+  .invoice-details-container {
+    margin-left: 0;
+    margin-top: var(--sidebar-width);
+    padding: 24px 16px;
+    max-width: 100%;
+  }
+
+  .back-btn {
+    margin-bottom: 24px;
+    gap: 16px;
+    font-size: 13px;
+  }
+
+  .details-header {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 20px;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .status-section {
+    justify-content: space-between;
+  }
+
+  .action-buttons {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .btn {
+    flex: 1;
+    min-width: 80px;
+    padding: 14px 16px;
+    font-size: 13px;
+    text-align: center;
+  }
+
+  .details-body {
+    padding: 24px 16px;
+  }
+
+  .body-top {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .sender-address p { text-align: left; }
+
+  .body-middle {
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: 32px;
+  }
+
+  .dates {
+    flex-direction: row;
+    gap: 32px;
+  }
+
+  .items-table { padding: 20px 16px; }
+
+  .table-header { display: none; }
+
+  .table-row {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 4px 16px;
+    margin-bottom: 20px;
+    background: var(--color-table-bg);
+    padding: 16px;
+    border-radius: 6px;
+  }
+
+  .table-row h4:first-child { grid-column: 1 / -1; }
+  .qty, .price, .total { text-align: left; }
+
+  .table-footer {
+    padding: 20px 16px;
+  }
+
+  .delete-modal {
+    padding: 32px 24px;
+  }
+
+  .delete-modal-actions {
+    flex-direction: column-reverse;
+    gap: 8px;
+  }
+
+  .delete-modal-actions button {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .invoice-details-container {
+    padding: 16px 12px;
+  }
+
+  .back-btn {
+    font-size: 12px;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .details-header {
+    padding: 16px 12px;
+  }
+
+  .btn {
+    padding: 12px;
+    font-size: 12px;
+  }
+
+  .details-body {
+    padding: 16px 12px;
+  }
+
+  .body-middle {
+    gap: 16px;
+  }
+
+  .dates {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .table-footer h2 {
+    font-size: 20px;
+  }
+
+  .delete-modal {
+    padding: 24px 16px;
+  }
+
+  .delete-modal h2 {
+    font-size: 20px;
+  }
+}

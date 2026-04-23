@@ -1,0 +1,207 @@
+/* ============================================
+   SIDEBAR STYLES — Matches Figma Design
+   ============================================ */
+
+:root {
+  --sidebar-width: 103px;
+}
+
+/* ── Desktop & Tablet: vertical left sidebar ── */
+.sidebar {
+  width: var(--sidebar-width);
+  height: 100vh;
+  background-color: #373B53;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1000;
+  overflow: hidden;
+  border-radius: 0 20px 20px 0;
+  transition: background-color 0.3s ease;
+}
+
+.dark-theme .sidebar {
+  background-color: #1E2139;
+}
+
+/* ── Logo area ── */
+.sidebar-logo {
+  width: 100%;
+  height: var(--sidebar-width);
+  min-height: var(--sidebar-width);
+  background-color: #7C5DFA;
+  border-radius: 0 20px 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: opacity 0.2s ease;
+}
+
+/* Bottom half-circle overlay to create the two-tone effect */
+.sidebar-logo__top {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background-color: #9277FF;
+  border-radius: 20px 0 20px 0;
+}
+
+.sidebar-logo:hover {
+  opacity: 0.92;
+}
+
+.logo-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.logo-icon svg {
+  width: 28px;
+  height: 26px;
+}
+
+/* ── Bottom section ── */
+.sidebar-bottom {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding-bottom: 24px;
+  width: 100%;
+}
+
+/* ── Theme toggle ── */
+.theme-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+}
+
+.theme-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid #7C5DFA;
+  outline-offset: 2px;
+}
+
+.theme-toggle svg {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
+/* ── Divider ── */
+.sidebar-divider {
+  width: 100%;
+  height: 1px;
+  background-color: #494E6E;
+}
+
+/* ── Avatar ── */
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid transparent;
+  transition: border-color 0.2s ease;
+  cursor: pointer;
+}
+
+.avatar:hover {
+  border-color: #7C5DFA;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ============================================
+  TABLET/MOBILE: horizontal top bar (<= 1024px)
+  ============================================ */
+@media (max-width: 1024px) {
+  :root {
+    --sidebar-width: 72px;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: var(--sidebar-width);
+    flex-direction: row;
+    top: 0;
+    left: 0;
+    right: 0;
+    border-radius: 0;
+    justify-content: space-between;
+  }
+
+  .sidebar-logo {
+    width: var(--sidebar-width);
+    height: 100%;
+    min-height: unset;
+    border-radius: 0 20px 20px 0;
+    flex-shrink: 0;
+  }
+
+  .sidebar-logo__top {
+    border-radius: 20px 0 20px 0;
+  }
+
+  .sidebar-bottom {
+    margin-top: 0;
+    flex-direction: row;
+    align-items: center;
+    gap: 24px;
+    padding-bottom: 0;
+    padding-right: 24px;
+    width: auto;
+  }
+
+  .sidebar-divider {
+    width: 1px;
+    height: 40px;
+  }
+}
+
+/* Small mobile tweaks */
+@media (max-width: 400px) {
+  :root {
+    --sidebar-width: 64px;
+  }
+
+  .sidebar-bottom {
+    gap: 16px;
+    padding-right: 16px;
+  }
+
+  .avatar {
+    width: 32px;
+    height: 32px;
+  }
+}
